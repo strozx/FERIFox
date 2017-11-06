@@ -23,6 +23,8 @@ namespace FERIFox
         public MainWindow()
         {
             InitializeComponent();
+            Browser.Navigate(new Uri("http://www.google.si"));
+            
         }
     }
 }

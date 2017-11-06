@@ -5,8 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FERIFox"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow" Height="350" Width="525" MinHeight="100">
+    <Grid Width="auto" Height="auto">
+
+      
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="16*" />
+          
+        </Grid.RowDefinitions>
+        <StackPanel  Width="auto" Height="auto" >
+            <DockPanel>
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem Header="_File">
+                        <MenuItem Header="_New" />
+                        <MenuItem Header="_Open" />
+                        <MenuItem Header="_Save" />
+                        <Separator />
+                        <MenuItem Header="_Exit" />
+                    </MenuItem>
+                </Menu>
+                
+               
+                    <Button x:Name="forward" Width="30" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;" Foreground="White" Background="DimGray"/>
+                    <Button x:Name="back" Width="30" FontFamily="Segoe MDL2 Assets" Content="&#xE72A;" Foreground="White" Background="DimGray"/>
+                    <Button x:Name="reload" Width="30" FontFamily="Segoe MDL2 Assets" Content="&#xE72C;" Foreground="White" Background="DimGray"/>
+                    <TextBox x:Name="url" TextWrapping="Wrap" Text="TextBox" Width="auto"/>
+ 
+
+            </DockPanel>
+            
+
+        </StackPanel>
+        <WebBrowser HorizontalAlignment="Left" Name="Browser" Grid.Row="1" VerticalAlignment="Top"/>
+
+
+
+
     </Grid>
 </Window>
