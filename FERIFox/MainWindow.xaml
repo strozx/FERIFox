@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FERIFox"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" MinHeight="100">
-    <Grid Width="auto" Height="auto">
+        Title="MainWindow" MinHeight="100">
+    <DataTemplate x:Key="TabHeader" DataType="TabItem">
+        <DockPanel>
+            <Button Name="btnDelete"  DockPanel.Dock="Right" FontFamily="Segoe MDL2 Assets" Content="&#xE894;" 
+                    Margin="5,0,0,0" Padding="0" Click="btnDelete_Click" 
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, 
+                    Path=Name}">
+            </Button>
+            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Header}" />
+        </DockPanel>
+    </DataTemplate>
+
+    <!--<Grid Width="auto" Height="auto">
 
       
         <Grid.RowDefinitions>
@@ -14,7 +25,7 @@
             <RowDefinition Height="16*" />
           
         </Grid.RowDefinitions>
-        <StackPanel  Width="auto" Height="auto" >
+        <StackPanel  Width="auto"  >
             <DockPanel>
                 <Menu DockPanel.Dock="Top">
                     <MenuItem Header="_File">
@@ -42,5 +53,89 @@
 
 
 
+    </Grid>-->
+    
+    
+    <Window.CommandBindings>
+        <CommandBinding Command="NavigationCommands.BrowseBack" CanExecute="BrowseBack_CanExecute" Executed="BrowseBack_Executed" />
+        <CommandBinding Command="NavigationCommands.BrowseForward" CanExecute="BrowseForward_CanExecute" Executed="BrowseForward_Executed" />
+        <CommandBinding Command="NavigationCommands.GoToPage" CanExecute="GoToPage_CanExecute" Executed="GoToPage_Executed" />
+        <CommandBinding Command="NavigationCommands.Refresh" CanExecute="Refresh_CanExecute" Executed="Refresh_Executed" />
+    </Window.CommandBindings>
+    <Grid Background="BlueViolet">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" /> 
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ToolBar DockPanel.Dock="Top" Grid.Row="1">
+            
+            <Button Command="NavigationCommands.BrowseBack" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;" >
+            </Button>
+            
+            <Button Command="NavigationCommands.BrowseForward"  FontFamily="Segoe MDL2 Assets" Content="&#xE72A;">
+            </Button>
+            
+            <Button Command="NavigationCommands.Refresh"  FontFamily="Segoe MDL2 Assets" Content="&#xE8EE;">
+            </Button>
+            
+            <Separator />
+            
+            <TextBox Name="txtUrl" Width="300" KeyUp="txtUrl_KeyUp" />
+            <Button Command="NavigationCommands.GoToPage" FontFamily="Segoe MDL2 Assets" Content="&#xE8AD;">
+            </Button>
+            
+        </ToolBar>
+        <DockPanel Grid.Row="3">
+
+
+            <TabControl  Name="tabDynamic" ItemsSource="{Binding}" SelectionChanged="tabDynamic_SelectionChanged" Width="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <!--<TabItem Header="TabItem">
+                    <WebBrowser Name="wbSample" Navigating="wbSample_Navigating" Margin="0,5,0,0"></WebBrowser>
+
+                </TabItem>-->
+                <TabControl.Resources>
+                    <DataTemplate x:Key="TabHeader" DataType="TabItem">
+                        <DockPanel>
+                            <Button Name="btnDelete" DockPanel.Dock="Right" Margin="5,0,0,0" Padding="0" Click="btnDelete_Click" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Name}">
+                                <Image Source="/delete.gif" Height="11" Width="11"></Image>
+                            </Button>
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Header}" />
+                        </DockPanel>
+                    </DataTemplate>
+                    <Style TargetType="TextBox">
+                        <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                        <Setter Property="AcceptsReturn" Value="True"></Setter>
+                        <Setter Property="TextWrapping" Value="WrapWithOverflow"></Setter>
+                        <Setter Property="MaxLines" Value="5000"></Setter>
+                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
+                        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"></Setter>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="TabItem">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+        <Menu x:Name="menu" Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" />
+                <MenuItem Header="_Open" />
+                <MenuItem Header="_Save" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+        </Menu>
+        <ListView x:Name="listView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="2" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
+
 </Window>
